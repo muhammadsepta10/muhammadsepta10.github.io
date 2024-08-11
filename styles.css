@@ -1,0 +1,252 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #0a0a0a;
+    color: #fff;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+nav ul {
+    display: flex;
+    justify-content: center;
+    background-color: #111;
+    padding: 10px 0;
+}
+
+nav ul li {
+    list-style: none;
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: #0ff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+nav ul li a:hover {
+    color: #f0f;
+}
+
+.hero {
+    text-align: center;
+    padding: 50px 20px;
+    background: url('https://t3.ftcdn.net/jpg/03/24/74/54/360_F_324745441_29s2iZ2NoUgq12WDBQcJ4CRjPn82Kc0D.jpg') no-repeat center center/cover;
+    color: #0ff;
+}
+
+.hero h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+    text-shadow: 0 0 10px #0ff;
+}
+
+.hero p {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    text-shadow: 0 0 10px #0ff;
+}
+
+.hero img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 2px solid #0ff;
+    box-shadow: 0 0 15px #0ff;
+}
+
+section {
+    padding: 40px 20px;
+    text-align: center;
+    background: url('asdasdasd') no-repeat center center/cover;
+}
+
+.project-container {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+}
+
+.project-slider {
+    display: flex;
+    width: max-content;
+    animation: slide 30s linear infinite;
+    display: flex;
+    height: 100%;
+    gap: 30px; /* Space between the cards */
+    padding-left: 30px; /* Padding to ensure the first card isn't flush with the edge */
+    transition: transform 0.5s ease-in-out;
+}
+
+.project-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Pastikan gambar menutupi seluruh card */
+}
+
+.project-card {
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* Shadow around the entire card */
+    border-radius: 15px;
+    min-width: 300px; /* Adjust based on your card size */
+    margin: 0 10px;  position: relative;
+    width: 70vw; /* Sesuaikan dengan lebar card */
+    height: 70vh; /* Sesuaikan dengan tinggi card */
+    overflow: hidden;
+    margin-right: 20px; /* Jarak antar card */
+}
+
+
+
+.project-card a {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.project-content {
+    background: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    border-radius: 15px;
+    text-align: center;
+    color: #fff;
+    max-width: 100%;
+    max-height: 100%;
+    margin: auto;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.project-card h3 {
+    margin: 0;
+    font-size: 2.5em;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #0ff;
+}
+
+.project-card p {
+    margin-top: 20vh;
+    font-size: 1.2em;
+    line-height: 1.5;
+    color: #ccc;
+}
+
+@keyframes scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(calc(-100vw * 2)); } /* Sesuaikan NUMBER_OF_CARDS dengan jumlah card */
+}
+
+@keyframes slide {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(calc(-100% + 300px + 20px)); /* Geser sebesar total lebar card */
+    }
+}
+
+
+
+
+
+.skill-bar {
+    margin: 20px 0;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.skill-icon {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+
+.skill-bar p {
+    font-size: 1.2em;
+    margin-bottom: 5px;
+    flex-grow: 1;
+    margin-right: 10px;
+}
+
+.progress-bar {
+    background-color: #333;
+    border-radius: 5px;
+    overflow: hidden;
+    height: 20px;
+    width: 60%;
+    position: relative;
+    transition: background-color 0.3s ease;
+}
+
+.progress {
+    background-color: #0ff;
+    height: 100%;
+    width: 0; /* Start at 0% and grow based on JS */
+    transition: width 0.3s ease;
+}
+
+.percentage {
+    position: absolute;
+    right: 10px;
+    top: 0;
+    bottom: 0;
+    line-height: 20px;
+    color: #fff;
+    font-size: 0.9em;
+    opacity: 0; /* Hidden by default */
+    transition: opacity 0.3s ease;
+}
+
+.skill-bar:hover .percentage {
+    opacity: 1; /* Show percentage on hover */
+}
+
+.skill-bar:hover .progress-bar {
+    background-color: #555; /* Change background on hover */
+}
+
+.contact-button {
+    display: inline-block;
+    margin: 10px;
+    padding: 10px 20px;
+    border: 2px solid #0ff;
+    border-radius: 5px;
+    color: #0ff;
+    text-decoration: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.contact-button img {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+.contact-button:hover {
+    background-color: #0ff;
+    color: #000;
+}
+
+footer {
+    background-color: #111;
+    padding: 20px;
+    text-align: center;
+    color: #0ff;
+}
+
+footer p {
+    margin: 0;
+}
