@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moch Syaiful | Backend Developer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Source Code Pro', 'Courier New', monospace;
+            background-color: #0d1117;
+            color: #c9d1d9;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .terminal-window {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            margin: 20px auto;
+            max-width: 1200px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        }
+
+        .terminal-header {
+            background: #21262d;
+            padding: 12px 20px;
+            border-radius: 8px 8px 0 0;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #30363d;
+        }
+
+        .terminal-controls {
+            display: flex;
+            gap: 8px;
+        }
+
+        .control-btn {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .close { background: #ff5f56; }
+        .minimize { background: #ffbd2e; }
+        .maximize { background: #27ca3f; }
+
+        .terminal-title {
+            margin-left: 20px;
+            color: #7d8590;
+            font-size: 14px;
+        }
+
+        .container {
+            padding: 30px;
+            min-height: 60vh;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(13, 17, 23, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 15px 0;
+            border-bottom: 1px solid #30363d;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            color: #00ff41;
+            font-weight: 700;
+            font-size: 18px;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: #c9d1d9;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #00ff41;
+        }
+
+        .nav-links a::before {
+            content: '>_';
+            opacity: 0;
+            margin-right: 5px;
+            transition: opacity 0.3s ease;
+        }
+
+        .nav-links a:hover::before {
+            opacity: 1;
+        }
+
+        .main-content {
+            margin-top: 80px;
+        }
+
+        .section {
+            display: none;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero {
+            text-align: center;
+            padding: 60px 0;
+        }
+
+        .typing-text {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cursor {
+            display: inline-block;
+            background-color: #00ff41;
+            margin-left: 3px;
+            width: 3px;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #7d8590;
+            margin-bottom: 40px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            background: #21262d;
+            color: #00ff41;
+            border: 1px solid #00ff41;
+            padding: 12px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-family: inherit;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn:hover {
+            background: #00ff41;
+            color: #0d1117;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 255, 65, 0.3);
+        }
+
+        .btn::before {
+            content: '>_ ';
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .skill-card {
+            background: #21262d;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            padding: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .skill-card:hover {
+            border-color: #00ff41;
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 255, 65, 0.1);
+        }
+
+        .skill-card h3 {
+            color: #00ff41;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .tech-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tech-tag {
+            background: #0d1117;
+            color: #7d8590;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            border: 1px solid #30363d;
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .project-card {
+            background: #21262d;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            padding: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover {
+            border-color: #00ff41;
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 255, 65, 0.1);
+        }
+
+        .project-card h3 {
+            color: #00ff41;
+            margin-bottom: 15px;
+        }
+
+        .project-card p {
+            margin-bottom: 15px;
+            color: #7d8590;
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #00ff41;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            background: #21262d;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            padding: 12px 16px;
+            color: #c9d1d9;
+            font-family: inherit;
+            font-size: 14px;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #00ff41;
+            box-shadow: 0 0 0 3px rgba(0, 255, 65, 0.1);
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        .contact-link {
+            color: #7d8590;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-link:hover {
+            color: #00ff41;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            color: #00ff41;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .section-title::before {
+            content: '>_ ';
+        }
+
+        .section-description {
+            text-align: center;
+            color: #7d8590;
+            margin-bottom: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .typing-text {
+                font-size: 1.8rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .container {
+                padding: 20px;
+            }
+
+            .skills-grid,
+            .project-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-links {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+        }
+
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            cursor: pointer;
+        }
+
+        .mobile-menu span {
+            width: 25px;
+            height: 3px;
+            background: #c9d1d9;
+            transition: all 0.3s ease;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu {
+                display: flex;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(13, 17, 23, 0.98);
+                flex-direction: column;
+                padding: 20px;
+                border-top: 1px solid #30363d;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">syaiful.dev</a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#" class="nav-link active" data-section="home">Beranda</a></li>
+                <li><a href="#" class="nav-link" data-section="about">Tentang</a></li>
+                <li><a href="#" class="nav-link" data-section="projects">Proyek</a></li>
+                <li><a href="#" class="nav-link" data-section="contact">Kontak</a></li>
+            </ul>
+            <div class="mobile-menu" id="mobileMenu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-controls">
+                    <div class="control-btn close"></div>
+                    <div class="control-btn minimize"></div>
+                    <div class="control-btn maximize"></div>
+                </div>
+                <div class="terminal-title">syaiful@backend-dev: ~/portfolio</div>
+            </div>
+
+            <!-- Home Section -->
+            <section id="home" class="section active">
+                <div class="container">
+                    <div class="hero">
+                        <div class="typing-text" id="typingText"></div>
+                        <p class="subtitle">Backend Developer | 5+ Years Experience | API Specialist</p>
+                        <div class="cta-buttons">
+                            <button class="btn" onclick="showSection('contact')">Hubungi Saya</button>
+                            <button class="btn" onclick="showSection('projects')">Lihat Proyek Saya</button>
+                        </div>
+                    </div>
+
+                    <div class="skills-grid">
+                        <div class="skill-card">
+                            <h3>Core Technologies</h3>
+                            <div class="tech-list">
+                                <span class="tech-tag">NestJS</span>
+                                <span class="tech-tag">TypeScript</span>
+                                <span class="tech-tag">Node.js</span>
+                                <span class="tech-tag">Express</span>
+                                <span class="tech-tag">NextJs</span>
+                                <span class="tech-tag">Php</span>
+                            </div>
+                        </div>
+                        <div class="skill-card">
+                            <h3>Database & Cache</h3>
+                            <div class="tech-list">
+                                <span class="tech-tag">PostgreSQL</span>
+                                <span class="tech-tag">MongoDB</span>
+                                <span class="tech-tag">Redis</span>
+                                <span class="tech-tag">MySql</span>
+                            </div>
+                        </div>
+                        <div class="skill-card">
+                            <h3>Integration & Auth</h3>
+                            <div class="tech-list">
+                                <span class="tech-tag">WhatsApp API</span>
+                                <span class="tech-tag">Payment Gateway</span>
+                                <span class="tech-tag">Keycloak</span>
+                                <span class="tech-tag">Google OAuth</span>
+                                <span class="tech-tag">Firebase</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- About Section -->
+            <section id="about" class="section">
+                <div class="container">
+                    <h2 class="section-title">Tentang Saya</h2>
+                    <p class="section-description">Mengenal lebih dekat perjalanan profesional saya</p>
+                    
+                    <div style="max-width: 800px; margin: 0 auto; text-align: left;">
+                        <p style="margin-bottom: 25px; color: #c9d1d9;">
+                            Saya adalah seorang Backend Developer dengan pengalaman lebih dari 5 tahun dalam membangun sistem yang robust dan scalable. Fokus utama saya adalah menciptakan API yang stabil, cepat, dan mudah dipelihara menggunakan teknologi modern.
+                        </p>
+                        
+                        <h3 style="color: #00ff41; margin: 30px 0 15px 0;">🚀 Pendekatan Kerja</h3>
+                        <p style="margin-bottom: 25px; color: #c9d1d9;">
+                            Saya percaya bahwa kode yang baik adalah kode yang bersih, terdokumentasi dengan baik, dan mudah dipahami. Saya selalu menerapkan best practices dalam development, termasuk clean architecture, proper error handling, dan comprehensive testing.
+                        </p>
+
+                        <h3 style="color: #00ff41; margin: 30px 0 15px 0;">⚡ Keahlian Utama</h3>
+                        <p style="margin-bottom: 25px; color: #c9d1d9;">
+                            Spesialisasi saya meliputi pengembangan RESTful API dengan NestJS dan TypeScript, manajemen database PostgreSQL dan MongoDB, implementasi caching dengan Redis, serta integrasi dengan berbagai layanan eksternal seperti payment gateway dan notification services.
+                        </p>
+
+                        <h3 style="color: #00ff41; margin: 30px 0 15px 0;">🎯 Teknologi Favorit</h3>
+                        <p style="margin-bottom: 25px; color: #c9d1d9;">
+                            NestJS adalah framework pilihan saya karena struktur yang modular dan support untuk TypeScript yang excellent. Kombinasi PostgreSQL untuk data relasional dan MongoDB untuk data fleksibel memberikan solusi database yang optimal. Redis sebagai caching layer memastikan performa aplikasi tetap optimal.
+                        </p>
+
+                        <h3 style="color: #00ff41; margin: 30px 0 15px 0;">🔧 Pengalaman Integrasi</h3>
+                        <p style="color: #c9d1d9;">
+                            Saya memiliki pengalaman ekstensif dalam integrasi sistem, mulai dari WhatsApp Business API untuk automation, Iris Payment Gateway untuk transaksi, autentikasi dengan Keycloak dan Google OAuth, hingga push notification menggunakan Firebase. Setiap integrasi dirancang dengan error handling yang proper dan monitoring yang komprehensif.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Projects Section -->
+            <section id="projects" class="section">
+                <div class="container">
+                    <h2 class="section-title">Proyek Saya</h2>
+                    <p class="section-description">Beberapa proyek yang telah saya kerjakan</p>
+                    
+                    <div class="project-grid">
+                        <div class="project-card">
+                            <h3>SIGANTENG</h3>
+                            <p>SIGANTENG (Sistem Informasi Pelanggan Tirta Benteng) adalah media layanan publik terpadu dan terintegrasi berbasis mobile untuk pelanggan dan calon pelanggan PERUMDA Tirta Benteng Kota Tangerang. Di dalamnya ada Pengaduan berbentuk chat realtime, pengingat untuk pengaduan dan/atau pembayaran air PDAM Tirta Benteng Kota Tangeran.</p>
+                            <div class="tech-list">
+                                <span class="tech-tag">NestJS</span>
+                                <span class="tech-tag">PostgreSQL</span>
+                                <span class="tech-tag">Redis</span>
+                                <span class="tech-tag">MongoDB</span>
+                                <span class="tech-tag">FLutter</span>
+                                <span class="tech-tag">Socket.IO</span>
+                                <span class="tech-tag">Firebase notification</span>
+                                <span class="tech-tag">WhatsApp API</span>
+                            </div>
+                        </div>
+
+                        <div class="project-card">
+                            <h3>SIMASPRO</h3>
+                            <p>SIMASPRO (Sistem Informasi Humas dan Protokoler) adalah Sistem berbasis teknologi informasi yang dirancang untuk mendukung kegiatan operasional di bidang hubungan masyarakat (Humas) dan protokoler di Perumda Tirta Benteng.</p>
+                            <div class="tech-list">
+                                <span class="tech-tag">NestJS</span>
+                                <span class="tech-tag">PostgreSQL</span>
+                                <span class="tech-tag">Redis</span>
+                                <span class="tech-tag">MongoDb</span>
+                                <span class="tech-tag">NextJs</span>
+                                <span class="tech-tag">Mailer</span>
+                            </div>
+                        </div>
+
+                        <div class="project-card">
+                            <h3>e-Procurement & e-Catalog</h3>
+                            <p>e-Procurement & e-Catalog adalah Platform Business to Business (B2B) eCommerce yang Otomatis & Cerdas untuk modernisasi pengadaan di era Procurement 4.0 di Perumda Tirta Benteng.</p>
+                            <div class="tech-list">
+                                <span class="tech-tag">NestJS</span>
+                                <span class="tech-tag">PostgreSQL</span>
+                                <span class="tech-tag">Redis</span>
+                                <span class="tech-tag">MongoDb</span>
+                                <span class="tech-tag">NextJs</span>
+                                <span class="tech-tag">Mailer</span>
+                            </div>
+                        </div>
+                        
+                        <div class="project-card">
+                            <h3>POSJOY</h3>
+                            <p>PosJoy Merupakan Aplikasi untuk mengatus SSO dari Aplikasi-aplikasi lain yang terdaftar pada tenantnya.</p>
+                            <div class="tech-list">
+                                <span class="tech-tag">NestJS</span>
+                                <span class="tech-tag">Keycloak</span>
+                                <span class="tech-tag">MongoDB</span>
+                            </div>
+                        </div>
+                        
+                        <div class="project-card">
+                            <h3>POSJOY</h3>
+                            <p>PosJoy Merupakan Aplikasi untuk mengatus SSO dari Aplikasi-aplikasi lain yang terdaftar pada tenantnya.</p>
+                            <div class="tech-list">
+                                <span class="tech-tag">NestJS</span>
+                                <span class="tech-tag">Keycloak</span>
+                                <span class="tech-tag">MongoDB</span>
+                            </div>
+                        </div>
+                        
+                        <div class="project-card">
+                            <h3>Digital Promotion (Lebih dari 10 Brand)</h3>
+                            <p>Aplikasi untuk media promosion dari brand2, menggunakan media wa/web app/mobile app, di dalamnya juga terdapat payment gateway yang terintegrasi dengan iris,mobile pulsa, dll. Juga terdapat livechat untuk customer service</p>
+                            <div class="tech-list">
+                                <span class="tech-tag">NestJS</span>
+                                <span class="tech-tag">MongoDB</span>
+                                <span class="tech-tag">PostgreSQL</span>
+                                <span class="tech-tag">Redis</span>
+                                <span class="tech-tag">Socket.IO</span>
+                                <span class="tech-tag">WhatsApp API</span>
+                                <span class="tech-tag">IRIS API</span>
+                                <span class="tech-tag">Mobile Pulsa API</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact Section -->
+            <section id="contact" class="section">
+                <div class="container">
+                    <h2 class="section-title">Kontak Saya</h2>
+                    <p class="section-description">Mari berkolaborasi dalam proyek backend yang menantang</p>
+                    
+                    <div class="contact-form">
+                        <form id="contactForm">
+                            <div class="form-group">
+                                <label for="name">$ echo "Nama Anda"</label>
+                                <input type="text" id="name" name="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">$ echo "Email Address"</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="project">$ echo "Jenis Proyek"</label>
+                                <input type="text" id="project" name="project" placeholder="API Development, Integration, Consultation, etc." required>
+                            </div>
+                            <div class="form-group">
+                                <label for="message">$ echo "Pesan Anda"</label>
+                                <textarea id="message" name="message" rows="6" placeholder="Ceritakan tentang proyek atau kebutuhan Anda..." required></textarea>
+                            </div>
+                            <button type="submit" class="btn">Kirim Pesan</button>
+                        </form>
+                    </div>
+                    
+                    <div class="contact-links">
+                        <a href="mailto:muhammadsepta1009@gmail.com" class="contact-link">
+                            >_ Email: muhammadsepta1009@gmail.com
+                        </a>
+                        <a href="https://github.com/muhammadsepta10" target="_blank" class="contact-link">
+                            >_ GitHub: /muhammadsepta10
+                        </a>
+                        <a href="https://www.linkedin.com/in/moch-syaiful/" target="_blank" class="contact-link">
+                            >_ LinkedIn: /in/moch-syaiful/
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script>
+        // Typing Animation
+        const phrases = [
+            ">_ Hello, I'm Moch Syaiful",
+            ">_ Backend Developer",
+            ">_ API Specialist",
+            ">_ System Integrator"
+        ];
+        
+        let currentPhrase = 0;
+        let currentChar = 0;
+        let isDeleting = false;
+        const typingElement = document.getElementById('typingText');
+        
+        function typeEffect() {
+            const current = phrases[currentPhrase];
+            
+            if (isDeleting) {
+                typingElement.innerHTML = current.substring(0, currentChar - 1) + '<span class="cursor">|</span>';
+                currentChar--;
+            } else {
+                typingElement.innerHTML = current.substring(0, currentChar + 1) + '<span class="cursor">|</span>';
+                currentChar++;
+            }
+            
+            if (!isDeleting && currentChar === current.length) {
+                setTimeout(() => isDeleting = true, 2000);
+            } else if (isDeleting && currentChar === 0) {
+                isDeleting = false;
+                currentPhrase = (currentPhrase + 1) % phrases.length;
+            }
+            
+            const speed = isDeleting ? 50 : 100;
+            setTimeout(typeEffect, speed);
+        }
+        
+        // Start typing animation
+        setTimeout(typeEffect, 1000);
+        
+        // Navigation
+        function showSection(sectionName) {
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Show target section
+            document.getElementById(sectionName).classList.add('active');
+            
+            // Update nav links
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            const targetLink = document.querySelector(`[data-section="${sectionName}"]`);
+            if (targetLink) {
+                targetLink.classList.add('active');
+            }
+            
+            // Close mobile menu if open
+            document.getElementById('navLinks').classList.remove('active');
+        }
+        
+        // Nav link clicks
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const section = link.getAttribute('data-section');
+                showSection(section);
+            });
+        });
+        
+        // Mobile menu toggle
+        document.getElementById('mobileMenu').addEventListener('click', () => {
+            document.getElementById('navLinks').classList.toggle('active');
+        });
+        
+        // Form submission
+        document.getElementById('contactForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Simple form validation and feedback
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData);
+            
+            // Simulate form submission
+            alert('Terima kasih! Pesan Anda telah dikirim. Saya akan segera menghubungi Anda.');
+            e.target.reset();
+        });
+        
+        // Smooth scrolling for better UX
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Add some terminal-like console messages
+        console.log('%c>_ Welcome to Moch Syaiful Portfolio', 'color: #00ff41; font-family: monospace; font-size: 16px;');
+        console.log('%c>_ Backend Developer | 5+ Years Experience', 'color: #7d8590; font-family: monospace;');
+        console.log('%c>_ Specializing in NestJS, TypeScript, PostgreSQL', 'color: #7d8590; font-family: monospace;');
+        console.log('%c>_ Contact: muhammadsepta1009@gmail.com', 'color: #7d8590; font-family: monospace;');
+    </script>
+</body>
+</html>
