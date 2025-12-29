@@ -1,0 +1,489 @@
+/* --- Global Styles & Resets --- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Source Code Pro", monospace;
+  background-color: #1a1a1a; /* Dark background */
+  color: #e0e0e0; /* Light grey text */
+  line-height: 1.7;
+  font-size: 16px;
+}
+
+/* --- Container --- */
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* --- Header / Navbar --- */
+.main-header {
+  background-color: #111;
+  padding: 15px 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 1px solid #00ff00; /* Terminal green border */
+}
+
+.main-header nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 0;
+}
+
+.main-header nav ul li {
+  margin: 5px 15px; /* Adjusted margin for wrap */
+}
+
+.main-header nav ul li a {
+  color: #00ff00; /* Terminal green links */
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.main-header nav ul li a:hover {
+  color: #ffffff; /* White on hover */
+}
+
+/* --- Sections --- */
+.terminal-section {
+  padding: 80px 0;
+  border-bottom: 1px dashed #444; /* Dashed separator */
+}
+
+.terminal-section:last-child {
+  border-bottom: none;
+}
+
+/* Section Titles */
+.terminal-section h2 {
+  color: #00ff00; /* Terminal green title */
+  margin-bottom: 40px; /* Increased margin */
+  font-size: 1.8em;
+  font-weight: 600;
+  display: inline-block;
+  padding-bottom: 5px;
+  border-bottom: 2px solid #00ff00;
+}
+
+/* --- Home Section (dengan Banner) --- */
+#home {
+  text-align: center;
+  padding: 120px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  background-color: #111; /* Fallback */
+  overflow: hidden;
+  border-bottom: none; /* Remove dashed border below banner section */
+}
+
+#home.has-banner {
+  /* GANTI DENGAN URL BANNER ANDA */
+  background-image: url("https://via.placeholder.com/1500x600/1a1a1a/0f0f0f?text=Code+Background");
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.banner-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(10, 10, 10, 0.75); /* Dark semi-transparent overlay */
+  z-index: 1;
+}
+
+#home .container {
+  position: relative;
+  z-index: 2; /* Content above overlay */
+}
+
+#home h1.typing-effect {
+  font-size: 2.5em;
+  color: #ffffff;
+  margin-bottom: 15px;
+  font-weight: 600;
+  min-height: 1.2em; /* Space for cursor */
+}
+
+/* Typed.js Cursor Styling */
+.typed-cursor {
+  color: #00ff00; /* Green cursor */
+  opacity: 1;
+  animation: blink 0.7s infinite;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+#home .subtitle {
+  font-size: 1.2em;
+  color: #cccccc; /* Lighter grey for subtitle contrast */
+  margin-bottom: 30px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* --- Call to Action Buttons --- */
+.cta-buttons {
+  margin-top: 20px;
+}
+
+.btn {
+  display: inline-block;
+  background: none;
+  border: 1px solid #00ff00;
+  color: #00ff00;
+  padding: 10px 20px;
+  margin: 10px;
+  text-decoration: none;
+  font-family: "Source Code Pro", monospace;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #00ff00;
+  color: #1a1a1a; /* Dark background on hover */
+}
+
+/* --- About Section --- */
+/* Layout for profile picture and text */
+.about-content-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px; /* Increased gap */
+  align-items: flex-start;
+}
+
+.profile-picture-container {
+  flex-shrink: 0;
+  text-align: center; /* Center picture if container wraps */
+}
+
+.profile-picture {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #00ff00;
+  display: block;
+  margin: 0 auto 20px auto; /* Auto margins for centering when wrapped */
+}
+
+#about .content {
+  flex-grow: 1;
+  min-width: 300px; /* Minimum width before text wraps below image */
+}
+
+#about .content p {
+  margin-bottom: 15px;
+}
+
+.tech-list {
+  list-style: none;
+  padding-left: 0;
+  color: #00ff00; /* Green for list text */
+}
+
+.tech-list li {
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.tech-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  vertical-align: middle; /* Helps alignment */
+}
+
+/* --- Projects Section --- */
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  margin-top: 30px;
+
+  /* Scrollable properties */
+  max-height: 70vh; /* Max height before scrolling (adjust as needed) */
+  overflow-y: auto; /* Enable vertical scrollbar when needed */
+  padding-right: 15px; /* Space for scrollbar */
+  padding-left: 5px; /* Small padding on left for balance */
+
+  /* Custom Scrollbar Styling */
+  scrollbar-width: thin; /* "auto" or "thin" */
+  scrollbar-color: #00ff00 #2a2a2a; /* thumb and track color */
+}
+
+/* Custom Scrollbar for WebKit browsers (Chrome, Safari, Edge) */
+.project-grid::-webkit-scrollbar {
+  width: 8px;
+}
+.project-grid::-webkit-scrollbar-track {
+  background: #2a2a2a;
+  border-radius: 4px;
+}
+.project-grid::-webkit-scrollbar-thumb {
+  background-color: #00ff00;
+  border-radius: 4px;
+  border: 1px solid #1a1a1a; /* Optional border */
+}
+.project-grid::-webkit-scrollbar-thumb:hover {
+  background-color: #33ff33;
+}
+
+.project-card {
+  background-color: #2a2a2a;
+  border: 1px solid #444;
+  overflow: hidden; /* Contain image */
+  display: flex;
+  flex-direction: column; /* Stack image and content */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Hover effect */
+}
+
+.project-card:hover {
+  transform: translateY(-5px); /* Slight lift on hover */
+  box-shadow: 0 5px 15px rgba(0, 255, 0, 0.1); /* Subtle green glow */
+}
+
+.project-image {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  display: block;
+}
+
+.project-content {
+  padding: 20px; /* Padding for text content */
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1; /* Allow content to grow and push link down */
+}
+
+.project-content h3 {
+  color: #ffffff;
+  margin-bottom: 10px;
+}
+
+.project-content p {
+  margin-bottom: 15px;
+  color: #cccccc;
+  flex-grow: 1; /* Description takes available space */
+}
+
+.project-content .tech-stack {
+  font-size: 0.9em;
+  color: #aaaaaa;
+  margin-bottom: 15px;
+}
+.project-content .tech-stack strong {
+  color: #00ff00;
+}
+
+.project-content .btn-link,
+.project-content .code-private {
+  margin-top: auto; /* Push link/status to the bottom */
+  display: block;
+  padding-top: 10px; /* Space above link */
+}
+
+.btn-link {
+  color: #00ff00;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+.btn-link:hover {
+  color: #ffffff;
+}
+.code-private {
+  color: #aaaaaa;
+  font-style: italic;
+  font-size: 0.9em;
+}
+
+/* --- Contact Section --- */
+.contact-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+
+.contact-form {
+  flex: 2;
+  min-width: 300px;
+}
+
+.contact-links {
+  flex: 1;
+  min-width: 200px;
+}
+
+.contact-form label {
+  display: block;
+  margin-bottom: 5px;
+  color: #00ff00;
+  font-weight: 600;
+}
+
+.contact-form input[type="text"],
+.contact-form input[type="email"],
+.contact-form textarea {
+  width: 100%;
+  padding: 12px; /* Slightly more padding */
+  margin-bottom: 15px;
+  background-color: #2a2a2a;
+  border: 1px solid #444;
+  color: #e0e0e0;
+  font-family: "Source Code Pro", monospace;
+  font-size: 1em;
+  border-radius: 0; /* Sharp corners */
+}
+
+.contact-form input[type="text"]:focus,
+.contact-form input[type="email"]:focus,
+.contact-form textarea:focus {
+  outline: none;
+  border-color: #00ff00;
+  box-shadow: 0 0 5px rgba(0, 255, 0, 0.3); /* Subtle glow on focus */
+}
+
+.contact-form textarea {
+  resize: vertical;
+}
+
+.contact-form button.btn {
+  margin-top: 10px;
+}
+
+.contact-links ul {
+  list-style: none;
+  padding: 0;
+}
+
+.contact-links ul li {
+  margin-bottom: 15px;
+}
+
+/* --- Footer --- */
+.main-footer {
+  text-align: center;
+  padding: 30px 20px; /* Increased padding */
+  margin-top: 60px; /* Increased margin */
+  color: #888;
+  font-size: 0.9em;
+  border-top: 1px solid #333;
+}
+
+/* --- Responsiveness --- */
+@media (max-width: 768px) {
+  body {
+    font-size: 15px;
+  }
+
+  .main-header nav ul {
+    justify-content: space-around;
+  }
+  .main-header nav ul li {
+    margin: 5px 10px;
+  }
+
+  #home {
+    padding: 100px 0;
+  }
+  #home h1.typing-effect {
+    font-size: 2em;
+  }
+  #home .subtitle {
+    font-size: 1.1em;
+  }
+
+  .terminal-section h2 {
+    font-size: 1.6em;
+    margin-bottom: 30px;
+  }
+
+  .about-content-grid {
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+  }
+  .profile-picture {
+    width: 150px;
+    height: 150px;
+  }
+  #about .content {
+    min-width: auto;
+  } /* Reset min-width */
+
+  /* Disable project grid scrolling on smaller screens */
+  .project-grid {
+    max-height: none; /* Remove height limit */
+    overflow-y: visible; /* Show all content, no scrollbar */
+    padding-right: 5px; /* Adjust padding to match left */
+    grid-template-columns: 1fr; /* Stack projects */
+    /* Hide custom scrollbar styles if they were applied */
+    scrollbar-width: auto;
+  }
+  .project-grid::-webkit-scrollbar {
+    display: none; /* Hide for WebKit */
+  }
+
+  .contact-content {
+    flex-direction: column;
+    gap: 30px;
+  }
+}
+
+@media (max-width: 480px) {
+  #home h1.typing-effect {
+    font-size: 1.8em;
+  }
+  #home .subtitle {
+    font-size: 1em;
+  }
+  .btn {
+    padding: 8px 15px;
+    font-size: 0.9em;
+  }
+  .profile-picture {
+    width: 120px;
+    height: 120px;
+  }
+  .project-image {
+    height: 150px;
+  }
+  .terminal-section {
+    padding: 60px 0;
+  }
+}
